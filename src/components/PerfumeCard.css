@@ -96,15 +96,15 @@
 
 .perfume-price {
   font-family: var(--heading);
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--gold-primary);
   font-weight: 700;
 }
 
 .btn-order {
   flex-grow: 1;
-  padding: 6px 14px;
-  font-size: 0.75rem;
+  padding: 5px 12px;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -163,6 +163,11 @@
   }
 
   .perfume-price {
-    font-size: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .btn-order {
+    font-size: 0.68rem;
+    padding: 5px 10px;
   }
 }

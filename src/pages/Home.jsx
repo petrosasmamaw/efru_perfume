@@ -9,6 +9,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectedPerfume, setSelectedPerfume] = useState(null);
   const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchPerfumes();
@@ -28,6 +29,10 @@ export default function Home() {
     }
   };
 
+  const filteredPerfumes = perfumes.filter((perfume) =>
+    perfume.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
+  );
+
   return (
     <main className="home">
       {/* Hero Section */}
@@ -43,7 +48,18 @@ export default function Home() {
       {/* Perfumes Section */}
       <section className="section perfumes-section">
         <div className="container">
-          <h2 className="section-title">Our Collection</h2>
+          <div className="collection-header">
+            <h2 className="section-title">Our Collection</h2>
+            <div className="collection-search">
+              <input
+                type="search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by perfume name"
+                aria-label="Search perfumes by name"
+              />
+            </div>
+          </div>
 
           {loading && (
             <div className="loading">
@@ -60,9 +76,15 @@ export default function Home() {
             </div>
           )}
 
-          {!loading && perfumes.length > 0 && (
+          {!loading && perfumes.length > 0 && filteredPerfumes.length === 0 && (
+            <div className="empty-state">
+              <p>No perfume found for "{searchTerm}"</p>
+            </div>
+          )}
+
+          {!loading && filteredPerfumes.length > 0 && (
             <div className="perfumes-grid">
-              {perfumes.map(perfume => (
+              {filteredPerfumes.map((perfume) => (
                 <PerfumeCard
                   key={perfume.id}
                   perfume={perfume}
