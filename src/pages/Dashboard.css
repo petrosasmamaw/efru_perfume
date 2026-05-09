@@ -113,7 +113,7 @@
 
 .perfume-row:hover {
   border-color: var(--gold-primary);
-  box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+  box-shadow: 0 0 20px rgba(122, 184, 212, 0.15);
 }
 
 .perfume-image {

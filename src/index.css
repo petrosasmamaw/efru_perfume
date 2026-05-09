@@ -1,16 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Warm dark default */
+  /* Glacial silver-blue default */
   --bg-primary: #0d0b08;
   --bg-secondary: #17130f;
   --bg-card: #1c1814;
-  --gold-primary: #d4a843;
-  --gold-light: #e1bb64;
+  --accent-primary: #7ab8d4;
+  --accent-light: #b8dce8;
+  --accent-dark: #4a8fa8;
+  --accent-glow: rgba(122, 184, 212, 0.2);
+  --text-accent: #b8dce8;
+  --border-accent: #5a9fb8;
+  --btn-bg: #7ab8d4;
+  --btn-hover: #b8dce8;
+  --gold-primary: var(--accent-primary);
+  --gold-light: var(--accent-light);
   --text-primary: #f5f0e5;
   --text-muted: #b4a992;
   --border: #2e2820;
-  --accent: #b8860b;
+  --accent: var(--accent-dark);
   --success: #2e8b57;
   --danger: #c0392b;
 
@@ -26,18 +34,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Optional light luxury palette */
+/* Light mode variant */
 @media (prefers-color-scheme: light) {
   :root {
     --bg-primary: #faf7f2;
     --bg-secondary: #f0ebe0;
     --bg-card: #ffffff;
-    --gold-primary: #b8860b;
-    --gold-light: #d4a017;
+    --accent-primary: #7ab8d4;
+    --accent-light: #b8dce8;
+    --accent-dark: #4a8fa8;
+    --accent-glow: rgba(122, 184, 212, 0.2);
+    --text-accent: #4a8fa8;
+    --border-accent: #5a9fb8;
+    --btn-bg: #7ab8d4;
+    --btn-hover: #b8dce8;
+    --gold-primary: var(--accent-primary);
+    --gold-light: var(--accent-light);
     --text-primary: #1a1a1a;
     --text-muted: #6b6560;
     --border: #e0d8cc;
-    --accent: #8b6914;
+    --accent: var(--accent-dark);
     --success: #2f7d4b;
     --danger: #b93a30;
   }

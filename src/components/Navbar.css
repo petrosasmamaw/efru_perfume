@@ -67,7 +67,7 @@
 .btn-owner:hover {
   background: var(--gold-primary);
   color: var(--bg-primary);
-  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
+  box-shadow: 0 0 15px rgba(122, 184, 212, 0.3);
 }
 
 .btn-logout {

@@ -11,7 +11,7 @@
 
 .perfume-card:hover {
   border-color: var(--gold-primary);
-  box-shadow: 0 12px 32px rgba(201, 168, 76, 0.2);
+  box-shadow: 0 12px 32px rgba(122, 184, 212, 0.2);
   transform: translateY(-6px);
 }
 
@@ -119,7 +119,7 @@
 .btn-order:hover {
   background: var(--gold-light);
   border-color: var(--gold-light);
-  box-shadow: 0 8px 20px rgba(201, 168, 76, 0.4);
+  box-shadow: 0 8px 20px rgba(122, 184, 212, 0.4);
 }
 
 .btn-order.disabled {

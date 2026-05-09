@@ -30,7 +30,7 @@
   text-transform: uppercase;
   color: var(--text-primary);
   margin: 0 0 1rem;
-  text-shadow: 0 0 30px rgba(201, 168, 76, 0.2);
+  text-shadow: 0 0 30px rgba(122, 184, 212, 0.2);
   animation: fadeInDown 0.8s ease;
 }
 
@@ -57,7 +57,7 @@
   right: 0;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(122, 184, 212, 0.12) 0%, transparent 70%);
   border-radius: 50%;
   z-index: 1;
 }
@@ -133,7 +133,7 @@
 
 .collection-search input:focus {
   border-color: var(--gold-primary);
-  box-shadow: 0 0 0 2px rgba(212, 168, 67, 0.2);
+  box-shadow: 0 0 0 2px rgba(122, 184, 212, 0.24);
 }
 
 .perfumes-grid {
