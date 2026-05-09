@@ -8,6 +8,34 @@ dotenv.config();
 
 const router = Router();
 
+function buildCookieOptions() {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  return {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    maxAge: 24 * 60 * 60 * 1000,
+    path: '/',
+  };
+}
+
+function getTokenFromCookieHeader(cookieHeader) {
+  if (!cookieHeader) {
+    return null;
+  }
+
+  const cookies = cookieHeader.split(';');
+  for (const cookie of cookies) {
+    const [name, ...rest] = cookie.trim().split('=');
+    if (name === 'authToken') {
+      return decodeURIComponent(rest.join('='));
+    }
+  }
+
+  return null;
+}
+
 // Signup route - create new owner account
 router.post('/signup', async (req, res) => {
   const { username, password } = req.body;
@@ -31,7 +59,13 @@ router.post('/signup', async (req, res) => {
       { expiresIn: '24h' }
     );
 
-    res.status(201).json({ token });
+    res.cookie('authToken', token, buildCookieOptions());
+    res.status(201).json({
+      owner: {
+        id: inserted[0].id,
+        username: inserted[0].username,
+      },
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
@@ -64,11 +98,51 @@ router.post('/login', async (req, res) => {
       { expiresIn: '24h' }
     );
 
-    res.json({ token });
+    res.cookie('authToken', token, buildCookieOptions());
+    res.json({
+      owner: {
+        id: owner[0].id,
+        username: owner[0].username,
+      },
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
+});
+
+router.get('/session', async (req, res) => {
+  const token = getTokenFromCookieHeader(req.headers.cookie);
+
+  if (!token) {
+    return res.status(401).json({ error: 'No active session' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.json({
+      authenticated: true,
+      owner: {
+        id: decoded.id,
+        username: decoded.username,
+      },
+    });
+  } catch {
+    res.status(401).json({ error: 'Session expired or invalid' });
+  }
+});
+
+router.post('/logout', async (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  res.clearCookie('authToken', {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    path: '/',
+  });
+
+  res.json({ message: 'Logged out successfully' });
 });
 
 export default router;

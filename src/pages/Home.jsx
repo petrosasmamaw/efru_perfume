@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getPerfumes } from '../api/perfumes.js';
 import PerfumeCard from '../components/PerfumeCard.jsx';
 import OrderModal from '../components/OrderModal.jsx';
+import { HomePerfumesSkeleton } from '../components/Skeletons.jsx';
 import './Home.css';
 
 export default function Home() {
@@ -29,7 +30,9 @@ export default function Home() {
     }
   };
 
-  const filteredPerfumes = perfumes.filter((perfume) =>
+  const availablePerfumes = perfumes.filter((perfume) => perfume.available === true);
+
+  const filteredPerfumes = availablePerfumes.filter((perfume) =>
     perfume.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
   );
 
@@ -62,10 +65,7 @@ export default function Home() {
           </div>
 
           {loading && (
-            <div className="loading">
-              <div className="spinner"></div>
-              <p>Loading perfumes...</p>
-            </div>
+            <HomePerfumesSkeleton />
           )}
 
           {error && <div className="error-message">{error}</div>}
@@ -76,7 +76,13 @@ export default function Home() {
             </div>
           )}
 
-          {!loading && perfumes.length > 0 && filteredPerfumes.length === 0 && (
+          {!loading && perfumes.length > 0 && availablePerfumes.length === 0 && (
+            <div className="empty-state">
+              <p>No perfumes available at the moment</p>
+            </div>
+          )}
+
+          {!loading && availablePerfumes.length > 0 && filteredPerfumes.length === 0 && (
             <div className="empty-state">
               <p>No perfume found for "{searchTerm}"</p>
             </div>

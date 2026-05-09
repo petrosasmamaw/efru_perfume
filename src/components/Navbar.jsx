@@ -1,22 +1,49 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { checkOwnerSession, logoutOwner } from '../api/auth.js';
 import './Navbar.css';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem('authToken');
+  const location = useLocation();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await checkOwnerSession();
+        setIsAuthenticated(true);
+      } catch {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkSession();
+  }, [location.pathname]);
 
   const handleOwnerClick = () => {
-    if (token) {
+    if (isAuthenticated) {
       navigate('/dashboard');
     } else {
       navigate('/owner/login');
     }
+    setShowMenu(false);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
+  const handleHomeClick = () => {
+    setShowMenu(false);
+    navigate('/');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutOwner();
+    } catch {
+      // Ignore logout request errors and clear UI state.
+    }
+
+    setIsAuthenticated(false);
     setShowMenu(false);
     navigate('/');
   };
@@ -38,16 +65,25 @@ export default function Navbar() {
             className="btn-owner"
             onClick={handleOwnerClick}
           >
-            {token ? '👤 Dashboard' : '👤 Owner'}
+            {isAuthenticated ? '👤 Dashboard' : '👤 Owner'}
           </button>
           
-          {token && (
-            <button 
-              className="btn-logout"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
+          {isAuthenticated && (
+            <>
+              <button
+                className="btn-home"
+                onClick={handleHomeClick}
+              >
+                Home
+              </button>
+
+              <button 
+                className="btn-logout"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
           )}
         </div>
       </div>

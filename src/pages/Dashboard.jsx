@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getPerfumes, deletePerfume } from '../api/perfumes.js';
 import { getOrders } from '../api/orders.js';
+import { checkOwnerSession } from '../api/auth.js';
 import EditPerfumeModal from '../components/EditPerfumeModal.jsx';
 import OrdersTable from '../components/OrdersTable.jsx';
+import {
+  DashboardPerfumesSkeleton,
+  DashboardOrdersSkeleton,
+} from '../components/Skeletons.jsx';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -15,16 +20,18 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('authToken');
-
   useEffect(() => {
-    if (!token) {
-      navigate('/owner/login');
-      return;
-    }
+    const verifySessionAndLoad = async () => {
+      try {
+        await checkOwnerSession();
+        await fetchData();
+      } catch {
+        navigate('/owner/login');
+      }
+    };
 
-    fetchData();
-  }, [token, navigate]);
+    verifySessionAndLoad();
+  }, [navigate]);
 
   const fetchData = async () => {
     try {
@@ -32,10 +39,14 @@ export default function Dashboard() {
       const perfumesData = await getPerfumes();
       setPerfumes(perfumesData);
 
-      const ordersData = await getOrders(token);
+      const ordersData = await getOrders();
       setOrders(ordersData);
       setError('');
     } catch (err) {
+      if (err.response?.status === 401) {
+        navigate('/owner/login');
+        return;
+      }
       setError('Failed to load data');
       console.error(err);
     } finally {
@@ -49,9 +60,13 @@ export default function Dashboard() {
     }
 
     try {
-      await deletePerfume(id, token);
+      await deletePerfume(id);
       setPerfumes(perfumes.filter(p => p.id !== id));
     } catch (err) {
+      if (err.response?.status === 401) {
+        navigate('/owner/login');
+        return;
+      }
       alert(err.response?.data?.error || 'Failed to delete perfume');
     }
   };
@@ -99,10 +114,7 @@ export default function Dashboard() {
               </div>
 
               {loading ? (
-                <div className="loading">
-                  <div className="spinner"></div>
-                  <p>Loading perfumes...</p>
-                </div>
+                <DashboardPerfumesSkeleton />
               ) : perfumes.length === 0 ? (
                 <div className="empty-state">
                   <p>No perfumes yet. Add your first perfume!</p>
@@ -162,10 +174,7 @@ export default function Dashboard() {
               </div>
 
               {loading ? (
-                <div className="loading">
-                  <div className="spinner"></div>
-                  <p>Loading orders...</p>
-                </div>
+                <DashboardOrdersSkeleton />
               ) : (
                 <OrdersTable orders={orders} />
               )}
@@ -177,7 +186,6 @@ export default function Dashboard() {
       {editingPerfume !== null && (
         <EditPerfumeModal
           perfume={editingPerfume.id ? editingPerfume : null}
-          token={token}
           onClose={() => setEditingPerfume(null)}
           onSuccess={fetchData}
         />

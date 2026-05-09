@@ -12,23 +12,23 @@ export async function getPerfume(id) {
   return res.data;
 }
 
-export async function createPerfume(perfumeData, token) {
+export async function createPerfume(perfumeData) {
   const res = await axios.post(`${API_URL}/api/perfumes`, perfumeData, {
-    headers: { Authorization: `Bearer ${token}` },
+    withCredentials: true,
   });
   return res.data;
 }
 
-export async function updatePerfume(id, perfumeData, token) {
+export async function updatePerfume(id, perfumeData) {
   const res = await axios.put(`${API_URL}/api/perfumes/${id}`, perfumeData, {
-    headers: { Authorization: `Bearer ${token}` },
+    withCredentials: true,
   });
   return res.data;
 }
 
-export async function deletePerfume(id, token) {
+export async function deletePerfume(id) {
   const res = await axios.delete(`${API_URL}/api/perfumes/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
+    withCredentials: true,
   });
   return res.data;
 }

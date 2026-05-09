@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginOwner } from '../api/auth.js';
+import { loginOwner, checkOwnerSession } from '../api/auth.js';
 import './OwnerLogin.css';
 
 export default function OwnerLogin() {
@@ -11,6 +11,19 @@ export default function OwnerLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await checkOwnerSession();
+        navigate('/dashboard');
+      } catch {
+        // No active session; stay on login page.
+      }
+    };
+
+    checkSession();
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,8 +45,7 @@ export default function OwnerLogin() {
     }
 
     try {
-      const response = await loginOwner(formData.username, formData.password);
-      localStorage.setItem('authToken', response.token);
+      await loginOwner(formData.username, formData.password);
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
@@ -87,10 +99,6 @@ export default function OwnerLogin() {
             {loading ? 'Logging in...' : 'Enter Portal'}
           </button>
         </form>
-
-        <div className="login-footer">
-          <p>Demo credentials: <br /> username: <strong>efru_owner</strong> <br /> password: <strong>owner123</strong></p>
-        </div>
       </div>
     </div>
   );

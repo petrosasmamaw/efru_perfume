@@ -4,7 +4,7 @@ import './EditPerfumeModal.css';
 
 const CATEGORIES = ["Girl's", "Boy's", 'Both'];
 
-export default function EditPerfumeModal({ perfume, token, onClose, onSuccess }) {
+export default function EditPerfumeModal({ perfume, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -50,9 +50,9 @@ export default function EditPerfumeModal({ perfume, token, onClose, onSuccess })
 
     try {
       if (perfume) {
-        await updatePerfume(perfume.id, formData, token);
+        await updatePerfume(perfume.id, formData);
       } else {
-        await createPerfume(formData, token);
+        await createPerfume(formData);
       }
       onSuccess?.();
       onClose();
