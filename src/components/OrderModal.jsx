@@ -67,7 +67,7 @@ export default function OrderModal({ perfume, onClose, onSuccess }) {
         ) : (
           <>
             <h2>Order {perfume.name}</h2>
-            <p className="order-price">Price: ${perfume.price.toFixed(2)}</p>
+            <p className="order-price">Price: ${Number(perfume.price).toFixed(2)}</p>
 
             <form onSubmit={handleSubmit}>
               <div className="form-group">

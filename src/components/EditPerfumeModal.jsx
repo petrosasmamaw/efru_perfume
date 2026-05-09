@@ -22,7 +22,7 @@ export default function EditPerfumeModal({ perfume, token, onClose, onSuccess })
         name: perfume.name,
         category: perfume.category,
         description: perfume.description || '',
-        price: perfume.price.toString(),
+        price: Number(perfume.price).toString(),
         image_url: perfume.image_url || '',
         available: perfume.available !== false,
       });

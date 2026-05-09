@@ -29,7 +29,7 @@ export default function OrdersTable({ orders }) {
               <tr key={order.id}>
                 <td className="order-id">#{order.id}</td>
                 <td>{order.perfume_name}</td>
-                <td className="price">${order.price.toFixed(2)}</td>
+                <td className="price">${Number(order.price).toFixed(2)}</td>
                 <td>{order.customer_name}</td>
                 <td>{order.customer_phone}</td>
                 <td>{order.customer_address}</td>
@@ -50,7 +50,7 @@ export default function OrdersTable({ orders }) {
             </div>
             <div className="order-card-body">
               <p><strong>Perfume:</strong> {order.perfume_name}</p>
-              <p><strong>Price:</strong> ${order.price.toFixed(2)}</p>
+              <p><strong>Price:</strong> ${Number(order.price).toFixed(2)}</p>
               <p><strong>Customer:</strong> {order.customer_name}</p>
               <p><strong>Phone:</strong> {order.customer_phone}</p>
               <p><strong>Address:</strong> {order.customer_address}</p>

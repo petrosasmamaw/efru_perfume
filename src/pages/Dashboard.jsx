@@ -125,7 +125,7 @@ export default function Dashboard() {
                       </div>
 
                       <div className="perfume-stats">
-                        <div className="price">${perfume.price.toFixed(2)}</div>
+                        <div className="price">${Number(perfume.price).toFixed(2)}</div>
                         <div className={`availability ${perfume.available ? 'available' : 'unavailable'}`}>
                           {perfume.available ? '✓ Available' : '✗ Out of Stock'}
                         </div>
