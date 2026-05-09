@@ -17,7 +17,7 @@ export default function PerfumeCard({ perfume, onOrderClick }) {
         <p className="perfume-category">{perfume.category}</p>
         <p className="perfume-description">{perfume.description}</p>
         <div className="perfume-footer">
-          <span className="perfume-price">${Number(perfume.price).toFixed(2)}</span>
+          <span className="perfume-price">Birr {Number(perfume.price).toFixed(2)}</span>
           <button
             className={`btn-order ${!perfume.available ? 'disabled' : 'btn-primary'}`}
             onClick={() => onOrderClick(perfume)}

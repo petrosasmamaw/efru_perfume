@@ -110,7 +110,7 @@ export default function EditPerfumeModal({ perfume, token, onClose, onSuccess })
 
           <div className="form-row">
             <div className="form-group">
-              <label>Price ($) *</label>
+              <label>Price (Birr) *</label>
               <input
                 type="number"
                 name="price"
