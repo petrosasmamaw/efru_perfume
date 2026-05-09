@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { createPerfume, updatePerfume } from '../api/perfumes.js';
 import './EditPerfumeModal.css';
 
-const CATEGORIES = ['Oud', 'Floral', 'Woody', 'Fresh', 'Oriental', 'Other'];
+const CATEGORIES = ["Girl's", "Boy's", 'Both'];
 
 export default function EditPerfumeModal({ perfume, token, onClose, onSuccess }) {
   const [formData, setFormData] = useState({

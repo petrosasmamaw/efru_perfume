@@ -7,7 +7,7 @@ export default function PerfumeCard({ perfume, onOrderClick }) {
         <img
           src={perfume.image_url || 'https://via.placeholder.com/300x400?text=Perfume'}
           alt={perfume.name}
-          className="perfume-image"
+          className="perfume-img"
         />
         {!perfume.available && <div className="out-of-stock">Out of Stock</div>}
       </div>
