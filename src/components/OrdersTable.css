@@ -1,0 +1,127 @@
+.orders-container {
+  width: 100%;
+}
+
+.orders-table-wrapper {
+  display: none;
+  width: 100%;
+  overflow-x: auto;
+}
+
+@media (min-width: 1024px) {
+  .orders-table-wrapper {
+    display: block;
+  }
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-card);
+}
+
+.orders-table thead {
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--border);
+}
+
+.orders-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  border-right: 1px solid var(--border);
+}
+
+.orders-table th:last-child {
+  border-right: none;
+}
+
+.orders-table td {
+  padding: 1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.orders-table td:last-child {
+  border-right: none;
+}
+
+.orders-table tbody tr:hover {
+  background: var(--bg-secondary);
+  cursor: pointer;
+}
+
+.order-id {
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+.price {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.orders-mobile {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .orders-mobile {
+    display: none;
+  }
+}
+
+.order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-card-header .order-id {
+  color: var(--gold-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.order-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.order-card-body p {
+  margin: 0.75rem 0;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.order-card-body strong {
+  color: var(--gold-primary);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
