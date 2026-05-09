@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { getApiBaseUrl } from './baseUrl.js';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = getApiBaseUrl();
 
 export async function getOrders() {
   const res = await axios.get(`${API_URL}/api/orders`, {
