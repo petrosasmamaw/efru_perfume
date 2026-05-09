@@ -5,11 +5,12 @@
 .hero {
   background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   border-bottom: 1px solid var(--border);
-  padding: 4rem 1rem;
+  padding: 40px 20px;
   position: relative;
   overflow: hidden;
   text-align: center;
-  min-height: 500px;
+  height: 50vh;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,8 +25,8 @@
 }
 
 .hero h1 {
-  font-size: 5rem;
-  letter-spacing: 3px;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-primary);
   margin: 0 0 1rem;
@@ -35,7 +36,7 @@
 
 .hero-tagline {
   font-family: var(--heading);
-  font-size: 1.8rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   font-style: italic;
   color: var(--gold-light);
   margin: 0.5rem 0 1.5rem;
@@ -85,40 +86,44 @@
 
 .perfumes-section {
   background: var(--bg-primary);
-  padding: 4rem 1rem;
+  padding: 24px 40px;
 }
 
 .section-title {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+  font-family: var(--heading);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
   color: var(--text-primary);
-  position: relative;
-  padding-bottom: 1.5rem;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 2px;
-  background: var(--gold-primary);
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gold-primary);
 }
 
 .perfumes-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
   animation: fadeIn 0.6s ease;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 1025px) {
   .perfumes-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .perfumes-section {
+    padding: 20px 24px;
+  }
+
+  .perfumes-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
   }
 
   .hero h1 {
@@ -130,27 +135,32 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
+  .perfumes-section {
+    padding: 16px;
+  }
+
   .perfumes-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .hero {
-    padding: 2rem 1rem;
-    min-height: 400px;
+    height: 45vh;
+    padding: 24px 16px;
   }
 
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    letter-spacing: 0.08em;
   }
 
   .hero-tagline {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
   }
 
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
 
